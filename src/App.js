@@ -1,10 +1,14 @@
 import './App.css';
-import MyPage from './pages/MyPage';
+import Login from './AuthPages/Login';
+import Nav from './Pages/Nav';
+
 
 function App() {
   return (
     <>
-    <MyPage/>
+    <Nav/>
+
+    <Login/>
     </>
   );
 }
