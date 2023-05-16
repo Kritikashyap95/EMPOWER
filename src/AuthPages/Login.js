@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "./Login.css";
 import { Formik } from "formik";
-import empowerImage from "../Public/clipart4753087.png";
-import iconEmpower from "../Public/emp2.png";
-import { useNavigate } from "react-router";
-import EmployeeDashboard from "../Pages/employee";
+import mpower from "../images/women-emp.png";
+//import { useNavigate } from "react-router";
+//import EmployeeDashboard from "../Pages/employee";
+import iconEmpower from "../images/Empower+Title+BLACK.png"
 import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -23,7 +23,7 @@ const Login = () => {
   return (
     <div className="loginPage">
       <div className="empowerImage">
-        <img src={empowerImage} alt="" />
+        <img src={mpower} alt="img.png" />
       </div>
       <div className="login__form">
         <Formik
@@ -89,12 +89,7 @@ const Login = () => {
               <div className="errors">
                 {errors.email && touched.email && errors.email}
               </div>
-              <div className="login_container">
-                Login with{" "}
-                <div className="login_icon">
-                  <GoogleIcon /> <FacebookIcon /> <GitHubIcon />
-                </div>
-              </div>
+              
 
               
               <button type="submit" disabled={isSubmitting} onClick={loader}>
@@ -110,7 +105,12 @@ const Login = () => {
               <u>Click Here</u> to get your Username
               </p>
 
-            
+              <div className="login_container">
+                Login with{" "}
+                <div className="login_icon">
+                  <GoogleIcon /> <FacebookIcon /> <GitHubIcon />
+                </div>
+              </div>
                {/* <label htmlFor="" className="password">
               Password<sup> *</sup>
             </label> 
