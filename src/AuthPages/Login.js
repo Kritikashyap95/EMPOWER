@@ -1,84 +1,137 @@
-import React from 'react';
-import "./Login.css"
-import { Formik } from 'formik';
-import empowerImage from "../Public/Empowerment.png"
-import iconEmpower from "../Public/iconEmpower.png"
+import React, { useState } from "react";
+import "./Login.css";
+import { Formik } from "formik";
+import empowerImage from "../Public/clipart4753087.png";
+import iconEmpower from "../Public/emp2.png";
+import { useNavigate } from "react-router";
+import EmployeeDashboard from "../Pages/employee";
+import GoogleIcon from "@mui/icons-material/Google";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import Loader from "../components/Loader";
+import EastIcon from "@mui/icons-material/East";
 
-const Login = () => (
-<div className="loginPage">
+const Login = () => {
+  const [flag, setFlag] = useState(true);
+  const [loading, setloading] = useState(false);
+  function loader() {
+    setloading(true);
+    setTimeout(() => {
+      setloading(false);
+    }, 3000);
+  }
+  return (
+    <div className="loginPage">
+      <div className="empowerImage">
+        <img src={empowerImage} alt="" />
+      </div>
+      <div className="login__form">
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          validate={(values) => {
+            const errors = {};
+            if (!values.email) {
+              errors.email = "Required";
+            } else if (
+              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+            ) {
+              errors.email = "Invalid email address";
+            }
+            return errors;
+          }}
+          onSubmit={(values, { setSubmitting }) => {
+            console.log("vgvhvhhv");
 
-  <div className="empowerImage">
-    <img src={empowerImage} alt="" />
-  </div>
-  <div className='login__form'>
-    <Formik
-      initialValues={{ email: '', password: '' }}
+            setTimeout(() => {
+              setSubmitting(false);
+            }, 200);
+          }}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+          }) => (
+            <form onSubmit={handleSubmit}>
+              <img src={iconEmpower} alt="" className="iconEmpower" />
+              <div
+                className="admin"
+                style={{ backgroundColor: `${flag ? "green" : "white"}` }}
+                onClick={() => setFlag(true)}
+              >
+                {" "}
+                Admin{" "}
+              </div>
+              <div
+                className="employee"
+                style={{ backgroundColor: `${!flag ? "green" : "white"}` }}
+                onClick={() => {
+                  setFlag(false);
+                }}
+              >
+                Employee
+              </div>
+              <label htmlFor="" className="username">
+                Username / Email <sup>*</sup>
+              </label>
+              <input
+                type="text"
+                name="email"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.email}
+              />
 
-      validate={values => {
-        const errors = {};
-        if (!values.email) {
-          errors.email = 'Required';
-        } else if (
-          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-        ) {
-          errors.email = 'Invalid email address';
-        }
-        return errors;
-      }}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 400);
-      }}
-    >
-      {({
-        values,
-        errors,
-        touched,
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        isSubmitting,
-      }) => (
-        <form onSubmit={handleSubmit}>
+              <div className="errors">
+                {errors.email && touched.email && errors.email}
+              </div>
+              <div className="login_container">
+                Login with{" "}
+                <div className="login_icon">
+                  <GoogleIcon /> <FacebookIcon /> <GitHubIcon />
+                </div>
+              </div>
 
-          <img src={iconEmpower} alt="" className='iconEmpower'/>
-          <label htmlFor="">Username / Email <sup>*</sup></label>
-          <input
-            type="text"
-            name="email"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.email}
-          />
+              
+              <button type="submit" disabled={isSubmitting} onClick={loader}>
+                <div className="Nextbtn">
+                  Next <EastIcon />{" "}
+                </div>{" "}
+                <Loader loading={loading} />
+              </button>
 
-          <div className="errors">
-          {errors.email && touched.email && errors.email}
+              <p>Forgot Username?</p>
 
-          </div>
+              <p>
+              <u>Click Here</u> to get your Username
+              </p>
 
-          <label htmlFor="">Password<sup> *</sup></label>
+            
+               {/* <label htmlFor="" className="password">
+              Password<sup> *</sup>
+            </label> 
 
-          <input
-            type="password"
-            name="password"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.password}
+              <input
+              type="password"
+              name="password"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.password}
             />
-          <div className="errors">
-          {errors.password && touched.password && errors.password}
-
-          </div>
-          <button type="submit" disabled={isSubmitting}>
-            Submit
-          </button>
-        </form>
-      )}
-    </Formik>
-  </div>
-            </div>
-);
+            <div className="errors">
+              {errors.password && touched.password && errors.password}
+            </div>  */}
+            
+            </form>
+          )}
+        </Formik>
+      </div>
+    </div>
+  );
+};
 
 export default Login;

@@ -1,0 +1,7 @@
+.OTP__texts{
+    display: flex;
+    gap:5px;
+}
+.OTP__texts input{
+    text-align: center;
+}
